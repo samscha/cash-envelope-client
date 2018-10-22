@@ -4,8 +4,8 @@
 
 ## Links
 
-(Website -- PENDING)[]
+[Website -- PENDING]()
 
-(App)[https://github.com/samscha/cash-envelope-native]
+[App](https://github.com/samscha/cash-envelope-native)
 
-(Server)[https://github.com/samscha/cash-envelope]
+[Server](https://github.com/samscha/cash-envelope)
