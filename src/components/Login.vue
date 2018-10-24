@@ -3,7 +3,7 @@
     <form class="login" @submit.prevent="login">
       <h2>Please sign in</h2>
 
-      <label for="email">Email address</label>
+      <label for="email" class="inputLabel">Email address</label>
       <input
         v-model="email"
         type="email"
@@ -13,7 +13,7 @@
         autofocus
       >
 
-      <label for="password">Password</label>
+      <label for="password" class="inputLabel">Password</label>
       <input
         v-model="password"
         type="password"
@@ -50,3 +50,11 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+@color: blue;
+
+.inputLabel {
+  color: @color;
+}
+</style>
