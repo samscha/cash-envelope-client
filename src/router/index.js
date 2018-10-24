@@ -24,7 +24,7 @@ const router = new Router({
       path: '/envelopes',
       namae: 'Envelopes',
       component: Envelopes,
-      beforeEnter: auth.checkAuth,
+      beforeEnter: auth.check,
     },
   ],
 });
