@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-link to="/">Home</router-link>
-    <!-- <router-link :to="{ name: 'Landing' }">Home</router-link> -->
+    <router-link to="/login">Login</router-link>
     <router-link to="/envelopes">Envelopes</router-link>
     <router-view/>
   </div>
@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: 'App',
+};
 </script>
 
 <style>

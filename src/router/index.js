@@ -1,27 +1,32 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Landing from '@/components/Landing'
-import Login from '@/components/Login'
-import Envelopes from '@/components/Envelopes'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Landing from '@/components/Landing';
+import Login from '@/components/Login';
+import Envelopes from '@/components/Envelopes';
 
-Vue.use(Router)
+import * as auth from './auth.router';
 
-export default new Router({
+Vue.use(Router);
+
+const router = new Router({
   routes: [
-    /*{
-      path: '/',
-      name: 'Login',
-      component: Login
-    },*/
     {
       path: '/',
       name: 'Landing',
-      component: Landing
+      component: Landing,
     },
     {
-        path: '/envelopes',
-        namae: 'Envelopes',
-        component: Envelopes
-    }
-  ]
-})
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/envelopes',
+      namae: 'Envelopes',
+      component: Envelopes,
+      beforeEnter: auth.checkAuth,
+    },
+  ],
+});
+
+export default router;

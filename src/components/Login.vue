@@ -33,14 +33,18 @@ export default {
   data: function() {
     return {
       email: '',
-      password: ''
-    }
+      password: '',
+    };
   },
   methods: {
     login: function() {
-      console.log(this.email)
-      console.log(this.password)
-    }
-  }
-}
+      const { email, password } = this;
+      console.log(email);
+      console.log(password);
+      this.$store.commit('authenticate', { email, password });
+
+      this.$router.push('/envelopes');
+    },
+  },
+};
 </script>
