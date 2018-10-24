@@ -5,12 +5,13 @@
       lala
       <br>
       test
+      <br>
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Envelopes'
-}
+  name: 'Envelopes',
+};
 </script>

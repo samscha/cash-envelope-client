@@ -37,13 +37,15 @@ export default {
     };
   },
   methods: {
-    login: function() {
+    login: async function() {
       const { email, password } = this;
-      console.log(email);
-      console.log(password);
-      this.$store.commit('authenticate', { email, password });
 
-      this.$router.push('/envelopes');
+      try {
+        await this.$store.dispatch('login', { email, password });
+        this.$router.push('/envelopes');
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
