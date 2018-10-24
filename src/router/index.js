@@ -4,7 +4,7 @@ import Landing from '@/components/Landing';
 import Login from '@/components/Login';
 import Envelopes from '@/components/Envelopes';
 
-import * as auth from './auth.router';
+import * as auth from './router.auth';
 
 Vue.use(Router);
 
