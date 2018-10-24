@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <div class="header">
       <div class="logo">
         <p>CASH</p>
@@ -7,7 +7,7 @@
 
       <div class="nav">
         <div class="nav__link">
-          <router-link to="/">Home</router-link>
+          <router-link to="/">home</router-link>
         </div>
 
         <div class="nav__link">
@@ -52,26 +52,40 @@ export default {
   margin-top: 20px;
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  height: 70px;
-  justify-content: space-between;
-  padding: 0 15px;
-
-  .logo {
-    width: 50px;
-  }
-
-  .nav {
+.app {
+  .header {
     display: flex;
     flex-direction: row;
+    height: 70px;
+    justify-content: space-between;
+    padding: 0 15px;
 
-    .nav__link {
-      margin: 0 7px;
+    .logo {
+      width: 50px;
+    }
 
-      a {
-        text-decoration: none;
+    .nav {
+      display: flex;
+      flex-direction: row;
+
+      .nav__link {
+        margin: 0 7px;
+
+        a {
+          color: green;
+          padding: 4px;
+          text-decoration: none;
+
+          &:hover {
+            background-color: blue;
+            color: white;
+          }
+
+          &:active {
+            // font-weight: 999;
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
