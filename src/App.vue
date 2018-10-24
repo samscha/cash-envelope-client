@@ -1,8 +1,26 @@
 <template>
   <div id="app">
-    <router-link to="/">Home</router-link>
-    <router-link to="/login">Login</router-link>
-    <router-link to="/envelopes">Envelopes</router-link>
+    <div class="header">
+      <div class="logo">
+        <p>CASH</p>
+      </div>
+
+      <div class="nav">
+        <div class="nav__link">
+          <router-link to="/">Home</router-link>
+        </div>
+
+        <div class="nav__link">
+          <router-link to="/login">login</router-link>
+        </div>
+
+        <div class="nav__link">
+          <router-link to="/envelopes">Envelopes</router-link>
+        </div>
+
+      </div>
+    </div>
+
     <router-view/>
   </div>
 </template>
@@ -13,7 +31,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
+@import 'index.less';
+
 @font-face {
   font-family: system;
   font-style: normal;
@@ -29,6 +49,31 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  justify-content: space-between;
+  padding: 0 15px;
+
+  .logo {
+    width: 50px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+
+    .nav__link {
+      margin: 0 7px;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
 }
 </style>

@@ -7,10 +7,18 @@
 <script>
 export default {
   name: 'Landing',
-  data () {
+  data() {
     return {
-      message: 'Cash Envelope'
-    }
-  }
-}
+      message: 'Cash Evelope 1',
+    };
+  },
+};
 </script>
+
+<style lang="less">
+h1 {
+  font-size: 2.4em;
+  font-weight: 700;
+  color: red;
+}
+</style>
