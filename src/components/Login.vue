@@ -3,21 +3,21 @@
     <form class="login" @submit.prevent="login">
       <h2>Please sign in</h2>
 
-      <label for="inputEmail">Email address</label>
+      <label for="email">Email address</label>
       <input
         v-model="email"
         type="email"
-        id="inputEmail"
+        id="email"
         placeholder="Email address"
         required
         autofocus
       >
 
-      <label for="inputPassword">Password</label>
+      <label for="password">Password</label>
       <input
         v-model="password"
         type="password"
-        id="inputPassword"
+        id="password"
         placeholder="Password"
         required
       >
