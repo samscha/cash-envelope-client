@@ -2,14 +2,10 @@
   <div id="app" class="app">
     <div class="header">
       <div class="logo">
-        <p>CASH</p>
+        <router-link to="/">cash envelope</router-link>
       </div>
 
       <div class="nav">
-        <div class="nav__link">
-          <router-link to="/">home</router-link>
-        </div>
-
         <div class="nav__link">
           <router-link to="/login">login</router-link>
         </div>
@@ -44,12 +40,14 @@ export default {
 }
 
 #app {
+  color: @colorTheme;
   font-family: 'system';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-size: @fontSize;
   margin-top: 20px;
+  min-width: 300px;
+  text-align: center;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 .app {
@@ -61,7 +59,7 @@ export default {
     padding: 0 15px;
 
     .logo {
-      width: 50px;
+      .logo();
     }
 
     .nav {
@@ -69,23 +67,7 @@ export default {
       flex-direction: row;
 
       .nav__link {
-        margin: 0 7px;
-
-        a {
-          color: green;
-          padding: 4px;
-          text-decoration: none;
-
-          &:hover {
-            background-color: blue;
-            color: white;
-          }
-
-          &:active {
-            // font-weight: 999;
-            text-decoration: underline;
-          }
-        }
+        .link();
       }
     }
   }
