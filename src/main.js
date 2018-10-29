@@ -8,8 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import forts from './fortawesome';
 
 import App from './App';
+import NavLink from './components/NavLink';
+
 import router from './router';
 import store from './store';
+
+Vue.component('nav-link', NavLink);
 
 library.add(forts);
 Vue.component('font-awesome-icon', FontAwesomeIcon);

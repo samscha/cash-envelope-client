@@ -5,15 +5,9 @@
         <router-link to="/">cash envelope</router-link>
       </div>
 
-      <div class="nav">
-        <div class="nav__link">
-          <router-link to="/login">login</router-link>
-        </div>
-
-        <div class="nav__link">
-          <router-link to="/envelopes">Envelopes</router-link>
-        </div>
-
+      <div class="nav-bar">
+        <nav-link uri="/login" text="login"></nav-link>
+        <nav-link uri="/envelopes" text="envelopes"></nav-link>
       </div>
     </div>
 
@@ -62,13 +56,8 @@ export default {
       .logo();
     }
 
-    .nav {
+    .nav-bar {
       display: flex;
-      flex-direction: row;
-
-      .nav__link {
-        .link();
-      }
     }
   }
 }
