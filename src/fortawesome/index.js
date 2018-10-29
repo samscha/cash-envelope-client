@@ -1,3 +1,7 @@
-import { faDesktop, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDesktop,
+  faSpinner,
+  faMobileAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
-export default [faDesktop, faSpinner];
+export default [faDesktop, faSpinner, faMobileAlt];

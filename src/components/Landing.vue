@@ -9,7 +9,10 @@
       </div>
 
       <div class="nav__link">
-        <router-link to="/">app</router-link>
+        <router-link to="/">
+          <font-awesome-icon icon="mobile-alt" /> 
+          app
+        </router-link>
       </div>
     </div>
 
@@ -30,16 +33,10 @@ export default {
   methods: {
     linkStyling(path) {
       const style = {};
-      console.log(`path: ${path}`);
-      console.log(`currpath: ${this.currRoute}`);
 
       if (this.currRoute === path) {
-        console.log(`pass`);
-        style.disabled = true;
-        style['background-color'] = 'red';
+        style['background-color'] = '#9fb4ca';
       }
-
-      console.log(style);
 
       return style;
     },
@@ -65,7 +62,7 @@ export default {
   .h1 {
     font-size: @fontHeader;
     font-weight: 700;
-    color: red;
+    color: orange;
   }
 }
 </style>
