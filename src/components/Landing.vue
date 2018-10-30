@@ -1,44 +1,57 @@
 <template>
   <div class="landing">
-    <div class="nav">
-      <div class="nav__link">
-        <router-link to="/" v-bind:style="linkStyling('/')">
+    <div class="tab-bar">
+      <button
+        v-for="tab in tabs"
+        v-bind:key="tab"
+        v-bind:class="['tab-button', { active: currTab === tab }]"
+        v-on:click="currTab = tab"
+      >
+        <div v-if="tab === 'web'" class="icon-wrapper">
           <font-awesome-icon icon="desktop" />
-          web
-        </router-link>
-      </div>
-
-      <div class="nav__link">
-        <router-link to="/">
-          <font-awesome-icon icon="mobile-alt" /> 
-          app
-        </router-link>
-      </div>
+        </div>
+        <div v-else class="icon-wrapper">
+          <font-awesome-icon icon="mobile-alt" />
+        </div>
+        {{ tab }}
+      </button>
     </div>
 
-    <div class="h1">{{ message }}</div>
-    <p>current route: {{ currRoute }}</p>
+    <component
+      v-bind:is="currTabComp"
+      class="tab"
+    ></component>
   </div>
 </template>
 
 <script>
+import app from './tabApp.vue';
+import web from './tabWeb.vue';
+
 export default {
   name: 'Landing',
+  components: {
+    'tab-app': app,
+    'tab-web': web,
+  },
   data() {
     return {
       message: 'Cash Evelope 1',
       currRoute: this.$router.currentRoute.path,
+      currTab: 'web',
+      tabs: ['web', 'app'],
     };
   },
-  methods: {
-    linkStyling(path) {
-      const style = {};
+  computed: {
+    currTabComp() {
+      return 'tab-' + this.currTab.toLowerCase();
+    },
+    webIcon() {
+      return currTab === 'web';
 
-      if (this.currRoute === path) {
-        style['background-color'] = '#9fb4ca';
-      }
+      if (currTab === 'web') return `<font-awesome-icon icon="desktop" />`;
 
-      return style;
+      return `<font-awesome-icon icon="mobile-alt" />`;
     },
   },
 };
@@ -48,20 +61,35 @@ export default {
 @import './../index.less';
 
 .landing {
-  .nav {
+  .tab-bar {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 0 0 15px 0;
 
-    .nav__link {
-      .link(7px);
+    .tab-button {
+      .button(7px);
+
+      display: flex;
+      flex-direction: row;
+
+      &:active {
+        text-decoration: none;
+      }
+
+      .icon-wrapper {
+        margin: 0 4px;
+      }
+    }
+
+    .tab-button.active {
+      background-color: @colorTheme;
+      color: @white;
+      border-color: @colorTheme;
     }
   }
 
-  .h1 {
-    font-size: @fontHeader;
-    font-weight: 700;
+  h1 {
     color: orange;
   }
 }
