@@ -1,4 +1,23 @@
-.link(@corners: 0%) {
+.button(@corners: 0) {
+  border: 1px solid;
+  border-radius: @corners;
+  cursor: pointer;
+  margin: 0 7px;
+  padding: 4px;
+
+  &:hover {
+    background-color: @colorTheme;
+    color: @white;
+  }
+
+  &:active {
+    background-color: @colorTheme;
+    color: @white;
+    text-decoration: underline;
+  }
+}
+
+.link(@corners: 0) {
   margin: 0 7px;
 
   a {
@@ -13,7 +32,8 @@
     }
 
     &:active {
-      // font-weight: 999;
+      background-color: @colorTheme;
+      color: white;
       text-decoration: underline;
     }
   }
@@ -26,8 +46,4 @@
     color: @black;
     text-decoration: none;
   }
-}
-
-.rounded() {
-  border-radius: 50%;
 }
