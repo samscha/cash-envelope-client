@@ -70,12 +70,23 @@ body:not(.user-is-tabbing) textarea:focus {
     justify-content: space-between;
     padding: 0 15px;
 
+    @media @phone {
+      flex-direction: column;
+      height: initial;
+    }
+
     .logo {
       .logo();
     }
 
     .nav-bar {
       display: flex;
+
+      @media @phone {
+        flex-direction: column;
+        padding: 15px 0;
+        margin: 10px 0;
+      }
     }
   }
 }
