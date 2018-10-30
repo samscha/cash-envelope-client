@@ -25,8 +25,21 @@
 </template>
 
 <script>
-import app from './tabApp.vue';
-import web from './tabWeb.vue';
+const web = {
+  template: `
+    <div class="tab-web">
+      <p>picture here</p>
+    </div>
+  `,
+};
+
+const app = {
+  template: `
+    <div class="tab-web">
+      <p>app comp</p>
+    </div>
+  `,
+};
 
 export default {
   name: 'Landing',
@@ -78,7 +91,7 @@ export default {
       }
 
       .icon-wrapper {
-        margin: 0 4px;
+        margin: 0 5px 0 0;
       }
     }
 
