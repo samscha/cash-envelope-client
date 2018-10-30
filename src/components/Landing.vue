@@ -35,8 +35,20 @@ const web = {
 
 const app = {
   template: `
-    <div class="tab-web">
-      <p>app comp</p>
+    <div class="tab-web" v-bind:style="{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }">
+      <img src="https://cdn-images-1.medium.com/max/800/1*NuSm7aVLj7QIr5JimpGDYw.png" alt="native-app-home" v-bind:style="{ alignSelf: 'center', height: '100%', maxWidth: '550px', width: '100%' }">
+
+      <a href="https://expo.io/@samscha/cash-envelope-native" target="_blank" rel="noopener noreferrer" v-bind:style="{ margin: '0 0 8px 0' }">
+        Expo
+      </a>
+
+      <a href="https://github.com/samscha/cash-envelope-native" target="_blank" rel="noopener noreferrer" v-bind:style="{ margin: '0 0 8px 0' }">
+        GitHub
+      </a>
+
+      <a href="https://medium.com/@samscha/creating-a-postgres-java-spring-react-native-virtual-cash-envelope-app-in-depth-tutorial-9dc62af8fd3f" target="_blank" rel="noopener noreferrer">
+        Blog
+      </a>
     </div>
   `,
 };
