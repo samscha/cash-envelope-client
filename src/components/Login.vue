@@ -1,43 +1,53 @@
 <template>
   <div class="login">
-    <form class="login" @submit.prevent="login">
-      <h2>Please sign in</h2>
-
-      <label for="email" class="inputLabel">Email address</label>
+    <form @submit.prevent="login">
+      <label for="email" class="inputLabel"></label>
       <input
         v-model="email"
         type="email"
         id="email"
-        placeholder="Email address"
+        placeholder="email address"
         required
         autofocus
+        :disabled="loading"
       >
 
-      <label for="password" class="inputLabel">Password</label>
+      <label for="password" class="inputLabel"></label>
       <input
         v-model="password"
         type="password"
         id="password"
-        placeholder="Password"
+        placeholder="password"
         required
+        :disabled="loading"
       >
 
-      <button type="submit">Sign in</button>
+      <button
+        type="submit"
+        :disabled="loading"
+       >
+        login
+       </button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'Login',
-  data: function() {
+  data() {
     return {
       email: '',
       password: '',
     };
   },
+  computed: mapState({
+    loading: state => state.auth.loading,
+  }),
   methods: {
-    login: async function() {
+    async login() {
       const { email, password } = this;
 
       try {
@@ -52,9 +62,28 @@ export default {
 </script>
 
 <style lang="less">
-@color: blue;
+@import './../index.less';
 
-.inputLabel {
-  color: @color;
+.login {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      font-size: @fontSize;
+      margin: 10px auto;
+      min-height: 50px;
+      min-width: 250px;
+      text-align: center;
+    }
+
+    button {
+      .divButton();
+
+      height: 50px;
+      margin: 10px auto;
+      width: 250px;
+    }
+  }
 }
 </style>
