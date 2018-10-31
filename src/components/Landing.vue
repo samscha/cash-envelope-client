@@ -95,7 +95,7 @@ export default {
     margin: 0 0 15px 0;
 
     .tab-button {
-      .button(7px);
+      .divButton(7px);
 
       background-color: @white;
       display: flex;

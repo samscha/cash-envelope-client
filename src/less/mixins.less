@@ -1,20 +1,30 @@
 .button(@corners: 0) {
   border: 1px solid;
   border-radius: @corners;
-  cursor: pointer;
   margin: 0 7px;
   padding: 4px;
 
-  &:hover {
+  &:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
     background-color: @colorTheme;
     color: @white;
   }
 
-  &:active {
+  &:active:enabled {
     background-color: @colorTheme;
     color: @white;
     text-decoration: underline;
   }
+}
+
+.divButton(@corners: 0) {
+  .button(@corners);
+
+  cursor: pointer;
 }
 
 .link(@corners: 0) {
