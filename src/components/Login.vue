@@ -22,12 +22,9 @@
         :disabled="loading"
       >
 
-      <button
-        type="submit"
-        :disabled="loading"
-       >
+      <button type="submit" :disabled="loading">
         login
-       </button>
+      </button>
     </form>
   </div>
 </template>
