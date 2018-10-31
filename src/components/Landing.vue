@@ -95,6 +95,7 @@ export default {
     .tab-button {
       .button(7px);
 
+      background-color: @white;
       display: flex;
       flex-direction: row;
 
