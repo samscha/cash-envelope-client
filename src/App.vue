@@ -47,7 +47,7 @@ export default {
   color: @colorTheme;
   font-family: 'system';
   font-size: @fontSize;
-  margin-top: 20px;
+  margin: 20px 0;
   min-width: 300px;
   text-align: center;
   -moz-osx-font-smoothing: grayscale;
