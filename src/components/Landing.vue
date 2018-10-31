@@ -28,7 +28,9 @@
 const web = {
   template: `
     <div class="tab-web">
-      <p>picture here</p>
+      <a href="https://github.com/samscha/cash-envelope-client" target="_blank" rel="noopener noreferrer" v-bind:style="{ margin: '0 0 8px 0' }">
+        GitHub
+      </a> 
     </div>
   `,
 };
