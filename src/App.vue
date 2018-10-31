@@ -7,7 +7,7 @@
 
       <div class="nav-bar">
         <nav-link uri="/login" text="login"></nav-link>
-        <nav-link uri="/envelopes" text="envelopes"></nav-link>
+        <nav-link uri="/signup" text="signup"></nav-link>
       </div>
     </div>
 
