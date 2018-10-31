@@ -10,6 +10,7 @@
         autofocus
         :disabled="loading"
       >
+      <div class="error" v-if="$v.email.$invalid">{{ emailErrors }}</div>
 
       <label for="password" />
       <input
@@ -38,6 +39,13 @@
 </template>
 
 <script>
+import {
+  email,
+  maxLength,
+  minLength,
+  required,
+  sameAs,
+} from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
 
 export default {
@@ -51,6 +59,24 @@ export default {
   },
   computed: mapState({
     loading: state => state.auth.loading,
+    emailErrors() {
+      const { email, maxLength, minLength, $params } = this.$v.email;
+      const pre = `email must be between 7 and 32 characters: `;
+
+      if (!maxLength) {
+        const diff = this.email.length - $params.maxLength.max;
+
+        return pre + `${diff} char${diff > 1 ? 's' : ''} too many`;
+      }
+
+      if (!minLength) {
+        const diff = $params.minLength.min - this.email.length;
+
+        return pre + `${diff} char${diff > 1 ? 's' : ''} remaining`;
+      }
+
+      if (!email) return `please check email format`;
+    },
   }),
   methods: {
     async signup() {
@@ -62,6 +88,23 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+  },
+  validations: {
+    email: {
+      // required,
+      email,
+      minLength: minLength(7),
+      maxLength: maxLength(32),
+    },
+    password: {
+      required,
+      minLength: minLength(8),
+      maxLength: maxLength(64),
+    },
+    confirmPassword: {
+      required,
+      sameAsPassword: sameAs('password'),
     },
   },
 };
@@ -76,11 +119,11 @@ export default {
     flex-direction: column;
 
     input {
-      font-size: @fontSize;
-      margin: 10px auto;
-      min-height: 50px;
-      min-width: 250px;
-      text-align: center;
+      .input();
+    }
+
+    .error {
+      .error();
     }
 
     button {

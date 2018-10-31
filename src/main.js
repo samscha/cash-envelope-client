@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 // import axios from 'axios';
+import Vuelidate from 'vuelidate'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -12,6 +13,8 @@ import NavLink from './components/NavLink';
 
 import router from './router';
 import store from './store';
+
+Vue.use(Vuelidate);
 
 Vue.component('nav-link', NavLink);
 

@@ -1,4 +1,5 @@
 .button(@corners: 0) {
+  background-color: @white;
   border: 1px solid;
   border-radius: @corners;
   margin: 0 7px;
@@ -25,6 +26,27 @@
   .button(@corners);
 
   cursor: pointer;
+}
+
+.error() {
+  color: @red;
+  max-width: 75%;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 auto;
+
+  @media @phone {
+    font-size: 0.75rem;
+  }
+}
+
+.input() {
+  font-size: @fontSize;
+  margin: 10px auto;
+  height: 50px;
+  max-width: 500px;
+  text-align: center;
+  width: 75%;
 }
 
 .link(@corners: 0) {
