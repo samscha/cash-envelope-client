@@ -40,7 +40,7 @@ export default {
           commit('authenticate', user);
           commit('end');
           resolve();
-        }, 2000);
+        }, 4000);
       });
     },
   },
