@@ -1,5 +1,9 @@
 <template>
   <div class="signup">
+    <h2 class="title">
+      create an account
+    </h2>
+
     <form @submit.prevent="signup">
       <label for="email" />
       <input v-model="email"
@@ -147,6 +151,10 @@ export default {
 @import './../index.less';
 
 .signup {
+  .title {
+    margin: 10px 0;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -164,7 +172,7 @@ export default {
 
       height: 50px;
       margin: 10px auto;
-      width: 250px;
+      width: 225px;
     }
   }
 }
