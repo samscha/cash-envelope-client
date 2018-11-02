@@ -38,7 +38,8 @@
       <div class="error" v-if="$v.confirmPassword.$error">{{ confirmPasswordErrors }}</div>
 
       <button type="submit" :disabled="loading || $v.$invalid">
-        signup
+        <font-awesome-icon v-if="loading" icon="spinner" pulse />
+        <p v-else>signup</p>
       </button>
     </form>
   </div>
@@ -77,6 +78,11 @@ export default {
   },
   computed: mapState({
     loading: state => state.auth.loading,
+    buttonText() {
+      // if (!this.$store.state.auth.loading) return `signup`;
+
+      return `<font-awesome-icon icon="spinner" pulse />`;
+    },
     emailErrors() {
       const { email, maxLength, minLength, $params } = this.$v.email;
       const pre = `email must be between 7 and 32 characters: `;
