@@ -100,6 +100,7 @@ export default {
       background-color: @white;
       display: flex;
       flex-direction: row;
+      padding: 5px;
 
       &:active {
         text-decoration: none;
