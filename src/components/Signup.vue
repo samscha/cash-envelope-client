@@ -9,8 +9,9 @@
         required
         autofocus
         :disabled="loading"
+        @input="$v.email.$touch()"
       >
-      <div class="error" v-if="$v.email.$invalid">{{ emailErrors }}</div>
+      <div class="error" v-if="$v.email.$error">{{ emailErrors }}</div>
 
       <label for="password" />
       <input
@@ -20,8 +21,9 @@
         placeholder="password"
         required
         :disabled="loading"
+        @input="$v.password.$touch()"
       >
-      <div class="error" v-if="$v.password.$invalid">{{ passwordErrors }}</div>
+      <div class="error" v-if="$v.password.$error">{{ passwordErrors }}</div>
 
       <label for="confirmPassword" />
       <input
@@ -31,10 +33,11 @@
         placeholder="confirm password"
         required
         :disabled="loading"
+        @input="$v.confirmPassword.$touch()"
       >
-      <div class="error" v-if="$v.confirmPassword.$invalid">{{ confirmPasswordErrors }}</div>
+      <div class="error" v-if="$v.confirmPassword.$error">{{ confirmPasswordErrors }}</div>
 
-      <button type="submit" :disabled="loading">
+      <button type="submit" :disabled="loading || $v.$invalid">
         signup
       </button>
     </form>
@@ -116,8 +119,7 @@ export default {
   },
   validations: {
     email: {
-      // required,
-      // TODO add text change to call $touch ƒor email field
+      required,
       email,
       minLength: minLength(7),
       maxLength: maxLength(32),
