@@ -21,6 +21,8 @@
         required
         :disabled="loading"
       >
+      <div class="error" v-if="$v.password.$invalid">{{ passwordErrors }}</div>
+
       <label for="confirmPassword" />
       <input
         v-model="confirmPassword"
@@ -30,6 +32,7 @@
         required
         :disabled="loading"
       >
+      <div class="error" v-if="$v.confirmPassword.$invalid">{{ confirmPasswordErrors }}</div>
 
       <button type="submit" :disabled="loading">
         signup
@@ -48,6 +51,18 @@ import {
 } from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
 
+const _charDiffErr = (num1, num2, str) => {
+  let diff = num1 - num2;
+
+  if (diff > 0) {
+    return str + `${diff} char${diff > 1 ? 's' : ''} too many`;
+  }
+
+  diff = Math.abs(diff);
+
+  return str + `${diff} char${diff > 1 ? 's' : ''} remaining`;
+};
+
 export default {
   name: 'Signup',
   data() {
@@ -63,19 +78,28 @@ export default {
       const { email, maxLength, minLength, $params } = this.$v.email;
       const pre = `email must be between 7 and 32 characters: `;
 
-      if (!maxLength) {
-        const diff = this.email.length - $params.maxLength.max;
+      if (!maxLength)
+        return _charDiffErr(this.email.length, $params.maxLength.max, pre);
 
-        return pre + `${diff} char${diff > 1 ? 's' : ''} too many`;
-      }
-
-      if (!minLength) {
-        const diff = $params.minLength.min - this.email.length;
-
-        return pre + `${diff} char${diff > 1 ? 's' : ''} remaining`;
-      }
+      if (!minLength)
+        return _charDiffErr(this.email.length, $params.minLength.min, pre);
 
       if (!email) return `please check email format`;
+    },
+    passwordErrors() {
+      const { password, maxLength, minLength, $params } = this.$v.password;
+      const pre = `password must be between 8 and 64 characters: `;
+
+      if (!maxLength)
+        return _charDiffErr(this.password.length, $params.maxLength.max, pre);
+
+      if (!minLength)
+        return _charDiffErr(this.password.length, $params.minLength.min, pre);
+    },
+    confirmPasswordErrors() {
+      const { sameAsPassword } = this.$v.confirmPassword;
+
+      if (!sameAsPassword) return `passwords do not match`;
     },
   }),
   methods: {
@@ -93,6 +117,7 @@ export default {
   validations: {
     email: {
       // required,
+      // TODO add text change to call $touch ƒor email field
       email,
       minLength: minLength(7),
       maxLength: maxLength(32),
