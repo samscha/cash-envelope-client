@@ -1,3 +1,5 @@
+import api from '../../axios';
+
 export const AUTH_LOGIN_START = `AUTH_LOGIN_START`;
 // export const AUTH_LOGIN_SUCCESS = `AUTH_LOGIN_SUCCESS`;
 // export const AUTH_LOGIN_FAIL = `AUTH_LOGIN_FAIL`;
@@ -6,15 +8,15 @@ export const AUTH_LOGIN_START = `AUTH_LOGIN_START`;
 const _initialState = {
   isAuthenticated: false,
   loading: false,
-  user: {},
+  user: '',
 };
 
 export default {
   state: { ..._initialState },
   mutations: {
-    authenticate(state, user) {
+    authenticate(state, username) {
       state.isAuthenticated = true;
-      state.user = { ...user };
+      state.user = username;
     },
     start(state) {
       state.loading = true;
@@ -32,16 +34,30 @@ export default {
     //     }, 2000);
     //   });
     // },
+    async getEnvelopes({}) {
+      return api.get(`/envelopes`);
+    },
     async login({ commit, dispatch }, user) {
       commit('start');
       // await dispatch('start');
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          commit('authenticate', user);
+      // return Vue.axios.post(`/login`, { ...user }, { withCredentials: true }).then(({ data }) => {
+      // return api.post(`/login`, { ...user }).then(({ data }) => {
+      return api
+        .post(`/login`, { username: user.email, password: user.password })
+        .then(response => {
+          commit('authenticate', user.email);
           commit('end');
-          resolve();
-        }, 4000);
-      });
+        })
+        .catch(err => {
+          commit('end');
+        });
+      // return new Promise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     commit('authenticate', user);
+      //     commit('end');
+      //     reject();
+      //   }, 4000);
+      // });
     },
   },
   getters: {

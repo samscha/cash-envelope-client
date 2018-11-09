@@ -98,7 +98,14 @@ export default {
       const { email, password } = this;
 
       try {
-        await this.$store.dispatch('login', { email, password });
+        await this.$store.dispatch('login', {
+          email,
+          password,
+        });
+
+        // const { data } = await this.$store.dispatch('getEnvelopes');
+        // console.log(data);
+
         this.$router.push('/envelopes');
       } catch (err) {
         console.log(err);
