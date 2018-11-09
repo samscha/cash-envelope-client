@@ -40,8 +40,6 @@ export default {
     async login({ commit, dispatch }, user) {
       commit('start');
       // await dispatch('start');
-      // return Vue.axios.post(`/login`, { ...user }, { withCredentials: true }).then(({ data }) => {
-      // return api.post(`/login`, { ...user }).then(({ data }) => {
       return api
         .post(`/login`, { username: user.email, password: user.password })
         .then(response => {
