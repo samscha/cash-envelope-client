@@ -73,3 +73,6 @@ typings/
 *.ntvs*
 *.njsproj
 *.sln
+
+# netlify
+.netlify/
