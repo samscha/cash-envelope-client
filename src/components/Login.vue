@@ -30,7 +30,9 @@
       >
       <div class="error" v-if="$v.password.$error">{{ passwordErrors }}</div>
 
-      <button type="submit" :disabled="loading || $v.$invalid">
+      <p class="login-error" v-if="error">{{ error }}</p>
+
+      <button type="submit" :disabled="loading || $v.$invalid || error.length > 0">
         <p v-if="!loading">login</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
@@ -70,6 +72,7 @@ export default {
   },
   computed: mapState({
     loading: state => state.auth.loading,
+    error: state => state.auth.error,
     emailErrors() {
       const { email, maxLength, minLength, $params } = this.$v.email;
       const pre = `email must be between 7 and 32 characters: `;
@@ -93,23 +96,35 @@ export default {
         return _charDiffErr(this.password.length, $params.minLength.min, pre);
     },
   }),
+  watch: {
+    email: function(val, oldVal) {
+      if (this.error) this.resetAuthErrors();
+    },
+    password: function(val, oldVal) {
+      if (this.error) this.resetAuthErrors();
+    },
+  },
   methods: {
     async login() {
       const { email, password } = this;
 
-      try {
-        await this.$store.dispatch('login', {
-          email,
-          password,
-        });
+      // try {
+      await this.$store.dispatch('login', {
+        email,
+        password,
+      });
 
-        // const { data } = await this.$store.dispatch('getEnvelopes');
-        // console.log(data);
+      // const { data } = await this.$store.dispatch('getEnvelopes');
+      // console.log(data);
 
-        this.$router.push('/envelopes');
-      } catch (err) {
-        console.log(err);
-      }
+      if (!this.error) this.$router.push('/envelopes');
+      // } catch (err) {
+      //   console.log('err');
+      //   console.log(err);
+      // }
+    },
+    resetAuthErrors() {
+      this.$store.dispatch('resetError');
     },
   },
   validations: {
@@ -146,6 +161,12 @@ export default {
 
     .error {
       .error();
+    }
+
+    .login-error {
+      .error();
+
+      font-size: @fontSize;
     }
 
     button {

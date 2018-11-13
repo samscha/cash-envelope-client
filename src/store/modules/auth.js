@@ -9,6 +9,7 @@ const _initialState = {
   isAuthenticated: false,
   loading: false,
   user: '',
+  error: '',
 };
 
 export default {
@@ -20,6 +21,9 @@ export default {
     },
     start(state) {
       state.loading = true;
+    },
+    error(state, error) {
+      state.error = error;
     },
     end(state) {
       state.loading = false;
@@ -37,6 +41,9 @@ export default {
     async getEnvelopes({}) {
       return api.get(`/envelopes`);
     },
+    resetError({ commit }) {
+      commit('error', '');
+    },
     async login({ commit, dispatch }, user) {
       commit('start');
       // await dispatch('start');
@@ -47,7 +54,12 @@ export default {
           commit('end');
         })
         .catch(err => {
+          const codes = [500, 422, 401];
+          const { data } = err.response;
+
+          if (codes.includes(data.status)) commit('error', data.message);
           commit('end');
+          // return data.message;
         });
       // return new Promise((resolve, reject) => {
       //   setTimeout(() => {
