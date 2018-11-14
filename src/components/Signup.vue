@@ -42,35 +42,22 @@
       >
       <div class="error" v-if="$v.confirmPassword.$error">{{ confirmPasswordErrors }}</div>
 
+      <p class="login-error" v-if="error">{{ error }}</p>
+
       <button type="submit" :disabled="loading || $v.$invalid">
         <p v-if="!loading">signup</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
+
+     <nav-link class="login-link" uri="/login" text="have an account? log in"></nav-link>
     </form>
   </div>
 </template>
 
 <script>
-import {
-  email,
-  maxLength,
-  minLength,
-  required,
-  sameAs,
-} from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
 
-const _charDiffErr = (num1, num2, str) => {
-  let diff = num1 - num2;
-
-  if (diff > 0) {
-    return str + `${diff} char${diff > 1 ? 's' : ''} too many`;
-  }
-
-  diff = Math.abs(diff);
-
-  return str + `${diff} char${diff > 1 ? 's' : ''} remaining`;
-};
+import { error as e, validation as v } from '../utils';
 
 export default {
   name: 'Signup',
@@ -83,34 +70,28 @@ export default {
   },
   computed: mapState({
     loading: state => state.auth.loading,
+    error: state => state.auth.error,
     emailErrors() {
-      const { email, maxLength, minLength, $params } = this.$v.email;
-      const pre = `email must be between 7 and 32 characters: `;
-
-      if (!maxLength)
-        return _charDiffErr(this.email.length, $params.maxLength.max, pre);
-
-      if (!minLength)
-        return _charDiffErr(this.email.length, $params.minLength.min, pre);
-
-      if (!email) return `please check email format`;
+      return e.form.email(this);
     },
     passwordErrors() {
-      const { password, maxLength, minLength, $params } = this.$v.password;
-      const pre = `password must be between 8 and 64 characters: `;
-
-      if (!maxLength)
-        return _charDiffErr(this.password.length, $params.maxLength.max, pre);
-
-      if (!minLength)
-        return _charDiffErr(this.password.length, $params.minLength.min, pre);
+      return e.form.password(this);
     },
     confirmPasswordErrors() {
-      const { sameAsPassword } = this.$v.confirmPassword;
-
-      if (!sameAsPassword) return `passwords do not match`;
+      return e.form.confirmPassword(this);
     },
   }),
+  watch: {
+    email(newVal, oldVal) {
+      if (this.error) this.$store.dispatch('resetError');
+    },
+    password(newVal, oldVal) {
+      if (this.error) this.$store.dispatch('resetError');
+    },
+    confirmPassword(newVal, oldVal) {
+      if (this.error) this.$store.dispatch('resetError');
+    },
+  },
   methods: {
     async signup() {
       const { email, password, confirmPassword } = this;
@@ -124,21 +105,9 @@ export default {
     },
   },
   validations: {
-    email: {
-      required,
-      email,
-      minLength: minLength(7),
-      maxLength: maxLength(32),
-    },
-    password: {
-      required,
-      minLength: minLength(8),
-      maxLength: maxLength(64),
-    },
-    confirmPassword: {
-      required,
-      sameAsPassword: sameAs('password'),
-    },
+    email: v.form.email,
+    password: v.form.password,
+    confirmPassword: v.form.confirmPassword,
   },
 };
 </script>
@@ -169,6 +138,10 @@ export default {
       height: 50px;
       margin: 10px auto;
       width: 225px;
+    }
+
+    .login-link {
+      margin-top: 10px;
     }
   }
 }

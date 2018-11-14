@@ -18,4 +18,8 @@ export const form = {
     minLength: minLength(8),
     maxLength: maxLength(64),
   },
+  confirmPassword: {
+    required,
+    sameAsPassword: sameAs('password'),
+  },
 };

@@ -35,4 +35,9 @@ export const form = {
 
     if (!minLength) return _charDiffErr(l, minL, pre);
   },
+  confirmPassword: _this => {
+    const { sameAsPassword } = _this.$v.confirmPassword;
+
+    if (!sameAsPassword) return `passwords do not match`;
+  },
 };
