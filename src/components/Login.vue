@@ -77,10 +77,7 @@ export default {
     async login() {
       const { email, password } = this;
 
-      await this.$store.dispatch('login', {
-        email,
-        password,
-      });
+      await this.$store.dispatch('login', { email, password });
 
       if (!this.error) this.$router.push('/envelopes');
     },
