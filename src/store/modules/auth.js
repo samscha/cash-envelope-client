@@ -55,9 +55,15 @@ export default {
         })
         .catch(err => {
           const codes = [500, 422, 401];
-          const { data } = err.response;
 
-          if (codes.includes(data.status)) commit('error', data.message);
+          if (err.response) {
+            const { data } = err.response;
+
+            if (codes.includes(data.status)) commit('error', data.message);
+          } else {
+            commit('error', `Server connection error. Please try again later`);
+          }
+
           commit('end');
           // return data.message;
         });
