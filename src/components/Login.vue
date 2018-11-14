@@ -41,26 +41,9 @@
 </template>
 
 <script>
-import {
-  email,
-  maxLength,
-  minLength,
-  required,
-  sameAs,
-} from 'vuelidate/lib/validators';
 import { mapState } from 'vuex';
 
-const _charDiffErr = (num1, num2, str) => {
-  let diff = num1 - num2;
-
-  if (diff > 0) {
-    return str + `${diff} char${diff > 1 ? 's' : ''} too many`;
-  }
-
-  diff = Math.abs(diff);
-
-  return str + `${diff} char${diff > 1 ? 's' : ''} remaining`;
-};
+import { error as e, validation as v } from '../utils';
 
 export default {
   name: 'Login',
@@ -74,71 +57,35 @@ export default {
     loading: state => state.auth.loading,
     error: state => state.auth.error,
     emailErrors() {
-      const { email, maxLength, minLength, $params } = this.$v.email;
-      const pre = `email must be between 7 and 32 characters: `;
-
-      if (!maxLength)
-        return _charDiffErr(this.email.length, $params.maxLength.max, pre);
-
-      if (!minLength)
-        return _charDiffErr(this.email.length, $params.minLength.min, pre);
-
-      if (!email) return `please check email format`;
+      return e.form.email(this);
     },
     passwordErrors() {
-      const { password, maxLength, minLength, $params } = this.$v.password;
-      const pre = `password must be between 8 and 64 characters: `;
-
-      if (!maxLength)
-        return _charDiffErr(this.password.length, $params.maxLength.max, pre);
-
-      if (!minLength)
-        return _charDiffErr(this.password.length, $params.minLength.min, pre);
+      return e.form.password(this);
     },
   }),
   watch: {
-    email: function(val, oldVal) {
-      if (this.error) this.resetAuthErrors();
+    email(newVal, oldVal) {
+      if (this.error) this.$store.dispatch('resetError');
     },
-    password: function(val, oldVal) {
-      if (this.error) this.resetAuthErrors();
+    password(newVal, oldVal) {
+      if (this.error) this.$store.dispatch('resetError');
     },
   },
   methods: {
     async login() {
       const { email, password } = this;
 
-      // try {
       await this.$store.dispatch('login', {
         email,
         password,
       });
 
-      // const { data } = await this.$store.dispatch('getEnvelopes');
-      // console.log(data);
-
       if (!this.error) this.$router.push('/envelopes');
-      // } catch (err) {
-      //   console.log('err');
-      //   console.log(err);
-      // }
-    },
-    resetAuthErrors() {
-      this.$store.dispatch('resetError');
     },
   },
   validations: {
-    email: {
-      required,
-      email,
-      minLength: minLength(7),
-      maxLength: maxLength(32),
-    },
-    password: {
-      required,
-      minLength: minLength(8),
-      maxLength: maxLength(64),
-    },
+    email: v.form.email,
+    password: v.form.password,
   },
 };
 </script>
