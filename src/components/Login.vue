@@ -55,6 +55,9 @@ export default {
       password: '',
     };
   },
+  mounted() {
+    this.$store.dispatch('resetError');
+  },
   computed: mapState({
     loading: state => state.auth.loading,
     error: state => state.auth.error,
