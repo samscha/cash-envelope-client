@@ -7,7 +7,7 @@
 
       <div class="nav-bar">
         <nav-link v-if="$route.path !== '/login'" uri="/login" text="login"></nav-link>
-        <nav-link uri="/signup" text="signup"></nav-link>
+        <nav-link v-if="$route.path !== '/signup'" uri="/signup" text="signup"></nav-link>
       </div>
     </div>
 
