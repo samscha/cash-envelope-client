@@ -36,6 +36,8 @@
         <p v-if="!loading">login</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
+
+     <nav-link class="signup-link" uri="/signup" text="don't have an account? sign up"></nav-link>
     </form>
   </div>
 </template>
@@ -122,6 +124,10 @@ export default {
       height: 50px;
       margin: 10px auto;
       width: 250px;
+    }
+
+    .signup-link {
+      margin-top: 10px;
     }
   }
 }
