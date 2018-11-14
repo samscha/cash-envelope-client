@@ -42,14 +42,14 @@
       >
       <div class="error" v-if="$v.confirmPassword.$error">{{ confirmPasswordErrors }}</div>
 
-      <p class="login-error" v-if="error">{{ error }}</p>
+      <p class="signup-error" v-if="error">{{ error }}</p>
 
-      <button type="submit" :disabled="loading || $v.$invalid">
+      <button type="submit" :disabled="loading || $v.$invalid || error.length > 0">
         <p v-if="!loading">signup</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
 
-     <nav-link class="login-link" uri="/login" text="have an account? log in"></nav-link>
+     <nav-link class="login-link" uri="/login" text="have an account already? log in"></nav-link>
     </form>
   </div>
 </template>
@@ -67,6 +67,9 @@ export default {
       password: '',
       confirmPassword: '',
     };
+  },
+  mounted() {
+    this.$store.dispatch('resetError');
   },
   computed: mapState({
     loading: state => state.auth.loading,
@@ -96,12 +99,9 @@ export default {
     async signup() {
       const { email, password, confirmPassword } = this;
 
-      try {
-        await this.$store.dispatch('login', { email, password });
-        this.$router.push('/envelopes');
-      } catch (err) {
-        console.log(err);
-      }
+      await this.$store.dispatch('signup', { email, password });
+
+      if (!this.error) this.$router.push('/envelopes');
     },
   },
   validations: {
@@ -130,6 +130,12 @@ export default {
 
     .error {
       .error();
+    }
+
+    .signup-error {
+      .error();
+
+      font-size: @fontSize;
     }
 
     button {
