@@ -41,3 +41,21 @@ export const form = {
     if (!sameAsPassword) return `passwords do not match`;
   },
 };
+
+const _codes = [500, 422, 401];
+
+export const response = {
+  message: err => {
+    if (err.response) {
+      const { data } = err.response;
+
+      if (_codes.includes(data.status)) return data.message;
+      return `Unknown error occured. Please try again later`;
+    }
+
+    /**
+     * if there's no response, this will mean the server is offline
+     */
+    return `Server connection error. Please try again later`;
+  },
+};

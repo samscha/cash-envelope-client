@@ -1,5 +1,7 @@
 import api from '../../axios';
 
+import { error as e } from '../../utils';
+
 export const AUTH_LOGIN_START = `AUTH_LOGIN_START`;
 // export const AUTH_LOGIN_SUCCESS = `AUTH_LOGIN_SUCCESS`;
 // export const AUTH_LOGIN_FAIL = `AUTH_LOGIN_FAIL`;
@@ -44,9 +46,9 @@ export default {
     resetError({ commit }) {
       commit('error', '');
     },
-    async login({ commit, dispatch }, user) {
+    async login({ commit }, user) {
       commit('start');
-      // await dispatch('start');
+
       return api
         .post(`/login`, { username: user.email, password: user.password })
         .then(response => {
@@ -54,26 +56,23 @@ export default {
           commit('end');
         })
         .catch(err => {
-          const codes = [500, 422, 401];
-
-          if (err.response) {
-            const { data } = err.response;
-
-            if (codes.includes(data.status)) commit('error', data.message);
-          } else {
-            commit('error', `Server connection error. Please try again later`);
-          }
-
+          commit('error', e.response.message(err));
           commit('end');
-          // return data.message;
         });
-      // return new Promise((resolve, reject) => {
-      //   setTimeout(() => {
-      //     commit('authenticate', user);
-      //     commit('end');
-      //     reject();
-      //   }, 4000);
-      // });
+    },
+    async signup({ commit }, user) {
+      commit('start');
+
+      return api
+        .post(`/users`, { username: user.email, password: user.password })
+        .then(response => {
+          commit('authenticate', user.email);
+          commit('end');
+        })
+        .catch(err => {
+          commit('error', e.response.message(err));
+          commit('end');
+        });
     },
   },
   getters: {
