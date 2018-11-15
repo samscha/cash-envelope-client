@@ -1,6 +1,7 @@
 import api from '../../axios';
 
 import { error as e } from '../../utils';
+import { strictEqual } from 'assert';
 
 export const AUTH_LOGIN_START = `AUTH_LOGIN_START`;
 // export const AUTH_LOGIN_SUCCESS = `AUTH_LOGIN_SUCCESS`;
@@ -37,6 +38,11 @@ export default {
     },
     end(state) {
       state.loading = false;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+      state.user = '';
+      localStorage.removeItem(`store`);
     },
   },
   actions: {

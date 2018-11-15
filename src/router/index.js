@@ -20,6 +20,7 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      beforeEnter: auth.login,
     },
     {
       path: '/signup',
@@ -30,7 +31,7 @@ const router = new Router({
       path: '/envelopes',
       namae: 'Envelopes',
       component: Envelopes,
-      beforeEnter: auth.check,
+      afterEnter: auth.check,
     },
   ],
 });

@@ -5,3 +5,9 @@ export const check = (to, from, next) => {
 
   next(`/login`);
 };
+
+export const login = (to, from, next) => {
+  if (store.getters.isAuthenticated) return next('/envelopes');
+
+  next();
+};

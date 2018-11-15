@@ -5,11 +5,28 @@ import auth from './modules/auth';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+  mutations: {
+    init(state) {
+      const _store = localStorage.getItem(`store`);
+
+      if (_store)
+        store.replaceState({
+          ...state,
+          ...JSON.parse(_store),
+        });
+    },
+  },
   modules: {
     auth,
   },
 });
+
+store.subscribe((mutation, state) => {
+  localStorage.setItem(`store`, JSON.stringify(state));
+});
+
+export default store;
 
 // export default new Vuex.Store({
 //   state: {

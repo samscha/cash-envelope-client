@@ -6,8 +6,12 @@
       </div>
 
       <div class="nav-bar">
-        <nav-link v-if="$route.path !== '/login'" uri="/login" text="login"></nav-link>
-        <nav-link v-if="$route.path !== '/signup'" uri="/signup" text="signup"></nav-link>
+        <nav-link v-if="$route.path !== '/login' && !$store.getters.isAuthenticated" uri="/login" text="login"></nav-link>
+        <nav-link v-if="$route.path !== '/signup' && !$store.getters.isAuthenticated" uri="/signup" text="signup"></nav-link>
+        <nav-link v-if="$route.path !== '/envelopes' && $store.getters.isAuthenticated" uri="/envelopes" text="envelopes"></nav-link>
+        <div v-on:click="logout">
+          <nav-link v-if="$store.getters.isAuthenticated" uri="/" text="logout">logout</nav-link>
+        </div>
       </div>
     </div>
 
@@ -28,6 +32,14 @@ window.addEventListener('keydown', handleFirstTab);
 
 export default {
   name: 'App',
+  beforeCreate() {
+    this.$store.commit('init');
+  },
+  methods: {
+    logout() {
+      this.$store.commit('logout');
+    },
+  },
 };
 </script>
 
