@@ -42,9 +42,9 @@
       >
       <div class="error" v-if="$v.confirmPassword.$error">{{ confirmPasswordErrors }}</div>
 
-      <p class="signup-error" v-if="error">{{ error }}</p>
+      <p class="signup-error" v-if="error.message">{{ error.message }}</p>
 
-      <button type="submit" :disabled="loading || $v.$invalid || error.length > 0">
+      <button type="submit" :disabled="loading || $v.$invalid || error.status > 0">
         <p v-if="!loading">signup</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
@@ -86,10 +86,10 @@ export default {
   }),
   watch: {
     email(newVal, oldVal) {
-      if (this.error) this.$store.dispatch('resetError');
+      if (this.error.status !== 0) this.$store.dispatch('resetError');
     },
     password(newVal, oldVal) {
-      if (this.error) this.$store.dispatch('resetError');
+      if (this.error.status !== 0) this.$store.dispatch('resetError');
     },
     confirmPassword(newVal, oldVal) {
       if (this.error) this.$store.dispatch('resetError');
@@ -101,7 +101,7 @@ export default {
 
       await this.$store.dispatch('signup', { email, password });
 
-      if (!this.error) this.$router.push('/envelopes');
+      if (this.error.status === 0) this.$router.push('/envelopes');
     },
   },
   validations: {

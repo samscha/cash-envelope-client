@@ -11,7 +11,7 @@ const _initialState = {
   isAuthenticated: false,
   loading: false,
   user: '',
-  error: '',
+  error: { status: 0, message: '' },
 };
 
 export default {
@@ -19,13 +19,21 @@ export default {
   mutations: {
     authenticate(state, username) {
       state.isAuthenticated = true;
+      state.error = { ..._initialState.error };
       state.user = username;
     },
     start(state) {
       state.loading = true;
     },
+    /**
+     * error code retrieved from error util
+     *
+     * @param {Object} state
+     * @param {Object} error { status: Number, message: String }
+     */
     error(state, error) {
-      state.error = error;
+      state.error.message = error.message;
+      state.error.status = error.status;
     },
     end(state) {
       state.loading = false;
@@ -44,7 +52,7 @@ export default {
       return api.get(`/envelopes`);
     },
     resetError({ commit }) {
-      commit('error', '');
+      commit('error', { message: '', status: 0 });
     },
     async login({ commit }, user) {
       commit('start');

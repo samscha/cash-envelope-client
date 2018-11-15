@@ -30,9 +30,9 @@
       >
       <div class="error" v-if="$v.password.$error">{{ passwordErrors }}</div>
 
-      <p class="login-error" v-if="error">{{ error }}</p>
+      <p class="login-error" v-if="error.message">{{ error.message }}</p>
 
-      <button type="submit" :disabled="loading || $v.$invalid || error.length > 0">
+      <button type="submit" :disabled="loading || $v.$invalid || error.status > 0">
         <p v-if="!loading">login</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
@@ -70,10 +70,10 @@ export default {
   }),
   watch: {
     email(newVal, oldVal) {
-      if (this.error) this.$store.dispatch('resetError');
+      if (this.error.status !== 0) this.$store.dispatch('resetError');
     },
     password(newVal, oldVal) {
-      if (this.error) this.$store.dispatch('resetError');
+      if (this.error.status !== 0) this.$store.dispatch('resetError');
     },
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
 
       await this.$store.dispatch('login', { email, password });
 
-      if (!this.error) this.$router.push('/envelopes');
+      if (this.error.status === 0) this.$router.push('/envelopes');
     },
   },
   validations: {

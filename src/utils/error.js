@@ -15,7 +15,7 @@ export const form = {
     const { email, maxLength, minLength, $params } = _this.$v.email;
     const pre = `email must be between 7 and 32 characters: `;
 
-    const l = _this.password.length;
+    const l = _this.email.length;
     const minL = $params.minLength.min;
     const maxL = $params.maxLength.max;
 
@@ -49,13 +49,24 @@ export const response = {
     if (err.response) {
       const { data } = err.response;
 
-      if (_codes.includes(data.status)) return data.message;
-      return `Unknown error occured. Please try again later`;
+      if (_codes.includes(data.status)) {
+        return {
+          status: data.status,
+          message: data.message,
+        };
+      }
+      return {
+        error: -1,
+        message: `Unknown error occured. Please try again later`,
+      };
     }
 
     /**
      * if there's no response, this will mean the server is offline
      */
-    return `Server connection error. Please try again later`;
+    return {
+      status: -1,
+      message: `Server connection error. Please try again later`,
+    };
   },
 };
