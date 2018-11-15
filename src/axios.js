@@ -19,6 +19,6 @@ switch (process.env.NODE_ENV) {
 
 instance.defaults.baseURL = baseURL;
 
-instance.defaults.timeout = 120000;
+instance.defaults.timeout = 10000;
 
 export default instance;
