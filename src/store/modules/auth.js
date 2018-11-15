@@ -1,4 +1,4 @@
-import api from '../../axios';
+import api from '../../utils/axios';
 
 import { error as e } from '../../utils';
 
@@ -53,9 +53,6 @@ export default {
     //     }, 2000);
     //   });
     // },
-    async getEnvelopes({}) {
-      return api.get(`/envelopes`);
-    },
     resetError({ commit }) {
       commit('error', { message: '', status: 0 });
     },
