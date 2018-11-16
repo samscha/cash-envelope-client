@@ -32,7 +32,7 @@
 
       <p class="login-error" v-if="error.message">{{ error.message }}</p>
 
-      <button type="submit" :disabled="loading || $v.$invalid || error.status > 0">
+      <button type="submit" :disabled="loading || $v.$invalid || (error.status > 0 && error.status !== 500)">
         <p v-if="!loading">login</p>
         <font-awesome-icon v-else icon="spinner" pulse />
       </button>
