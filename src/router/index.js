@@ -21,11 +21,13 @@ const router = new Router({
       name: 'Login',
       component: Login,
       beforeEnter: auth.login,
+      beforeRouteLeave: auth.reset,
     },
     {
       path: '/signup',
       name: 'Signup',
       component: Signup,
+      beforeRouteLeave: auth.reset,
     },
     {
       path: '/envelopes',

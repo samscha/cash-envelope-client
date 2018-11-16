@@ -28,8 +28,17 @@ export default {
         this.error.message = 'Server connection error. Please try again later';
         return;
       }
+
+      const { data } = err.response;
+
+      if (data.status === 401) {
+        this.$store.commit('unauth', data);
+        this.$router.push('/login');
+      }
+
+      this.error.status = data.status;
+      this.error.message = data.message;
     }
-    // this.$store.dispatch('getEnvelopes');
   },
 };
 </script>

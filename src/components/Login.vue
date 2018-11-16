@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('resetError');
+    // this.$store.dispatch('resetError');
   },
   computed: mapState({
     loading: state => state.auth.loading,

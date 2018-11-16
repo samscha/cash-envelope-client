@@ -43,6 +43,15 @@ export default {
       state.user = '';
       localStorage.removeItem(`store`);
     },
+    unauth(state, response) {
+      state.isAuthenticated = false;
+      state.user = '';
+      localStorage.removeItem(`store`);
+
+      console.log(response);
+      state.error.status = response.status;
+      state.error.message = response.message;
+    },
   },
   actions: {
     // async start({ commit }) {

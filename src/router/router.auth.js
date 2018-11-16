@@ -11,3 +11,7 @@ export const login = (to, from, next) => {
 
   next();
 };
+
+export const reset = (to, from, next) => {
+  store.dispatch('resetError');
+};
