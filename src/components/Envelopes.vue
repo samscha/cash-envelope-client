@@ -1,12 +1,8 @@
 <template>
-  <div class="about">
-    <h1>Envelopes</h1>
-    <p>
-      lala
-      <br>
-      test
-      <br>
-    </p>
+  <div class="envelopes">
+    <h1 class="title">Envelopes</h1>
+
+    <p class="error" v-if="error.message">{{ error.message }}</p>
   </div>
 </template>
 
@@ -18,6 +14,7 @@ export default {
   data() {
     return {
       envelopes: [],
+      error: { status: 0, message: '' },
     };
   },
   async mounted() {
@@ -26,9 +23,26 @@ export default {
 
       this.envelopes = [...data];
     } catch (err) {
-      console.error(err);
+      if (!err.response) {
+        this.error.status = -1;
+        this.error.message = 'Server connection error. Please try again later';
+        return;
+      }
     }
     // this.$store.dispatch('getEnvelopes');
   },
 };
 </script>
+
+<style lang="less">
+@import './../index.less';
+.envelopes {
+  .title {
+    margin: 0 0 24px 0;
+  }
+
+  .error {
+    .error();
+  }
+}
+</style>
