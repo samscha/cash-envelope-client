@@ -69,7 +69,10 @@ export default {
     };
   },
   mounted() {
-    // this.$store.dispatch('resetError');
+    // configure this to onPageLeave instead of mount
+    // to persist error when session expired
+    // aka when user is logged in with token but session entry is deleted
+    this.$store.dispatch('resetError');
   },
   computed: mapState({
     loading: state => state.auth.loading,

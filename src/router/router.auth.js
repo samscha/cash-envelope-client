@@ -12,6 +12,9 @@ export const login = (to, from, next) => {
   next();
 };
 
-export const reset = (to, from, next) => {
-  store.dispatch('resetError');
-};
+// export const resetErrors = (to, from, next) => {
+//   console.log('RESET');
+//   store.dispatch('resetError');
+
+//   next();
+// };
