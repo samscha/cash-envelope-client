@@ -48,7 +48,6 @@ export default {
       state.user = '';
       localStorage.removeItem(`store`);
 
-      console.log(response);
       state.error.status = response.status;
       state.error.message = response.message;
     },
@@ -86,6 +85,20 @@ export default {
         .post(`/users`, { username: user.email, password: user.password })
         .then(response => {
           commit('authenticate', user.email);
+          commit('end');
+        })
+        .catch(err => {
+          commit('error', e.response.message(err));
+          commit('end');
+        });
+    },
+    async logout({ commit }) {
+      commit('start');
+
+      return api
+        .get(`/logout`)
+        .then(response => {
+          commit('logout');
           commit('end');
         })
         .catch(err => {
