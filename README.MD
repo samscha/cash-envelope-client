@@ -9,3 +9,7 @@
 [App](https://github.com/samscha/cash-envelope-native)
 
 [Server](https://github.com/samscha/cash-envelope)
+
+## KNOWN ISSUES
+
+- [ ] cross-site prevention on Chrome and Safari cause cookies to not be set properly
